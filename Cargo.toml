@@ -2,11 +2,12 @@
 name = "hyprsession"
 version = "0.1.3"
 edition = "2021"
-authors = [ "Josh Andrews" ]
+authors = [ "Josh Andrews", "Marco Slabbert"]
 license = "GPL-3.0"
 description = "Saves hyprland sessions"
 readme = "README.md"
-repository = "https://github.com/joshurtree/hyprsession"
+original_repository = "https://github.com/joshurtree/hyprsession"
+repository = "https://github.com/marcoslabbert/hyprsession"
 keywords = [ "hyprland", "session", "tools" ]
 
 [dependencies]
