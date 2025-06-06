@@ -1,6 +1,6 @@
-use std::{env, thread, time};
 use std::fs::create_dir_all;
 use std::process::exit;
+use std::{env, thread, time};
 //use serde::Deserialize;
 use clap::{Parser, ValueEnum};
 
@@ -11,15 +11,15 @@ use crate::session::*;
 enum Mode {
     /// Load session then periodicly save session (default)
     Default,
-    
-    /// Periodicly save the session 
+
+    /// Periodicly save the session
     SaveOnly,
 
     /// Save the session once then exit
     SaveAndExit,
 
     /// Load the session then exit
-    LoadAndExit
+    LoadAndExit,
 }
 
 #[derive(Parser)]
@@ -30,17 +30,17 @@ struct Args {
     mode: Option<Mode>,
 
     /// Interval between saving sessions (default: 60)
-    #[arg(short='i', long)]
+    #[arg(short = 'i', long)]
     save_interval: Option<u64>,
-    
+
     /// The path where the session is saved (default: ~/.local/share)
-    #[arg(short='s', long)]
+    #[arg(short = 's', long)]
     session_path: Option<String>,
 
     /// Only simulate calls to Hyprland (supresses loading of session)
     #[arg(long)]
-    simulate: bool
-}   
+    simulate: bool,
+}
 
 fn main() {
     let args = Args::parse();
@@ -58,10 +58,9 @@ fn main() {
         .expect(&format!("Failed to create session dir: {}", session_path));
 
     match mode {
-        Mode::Default | Mode::LoadAndExit =>
-            load_session(&session_path, simulate),
-        Mode::SaveAndExit | Mode::SaveOnly => save_session(&session_path)
-    } 
+        Mode::Default | Mode::LoadAndExit => load_session(&session_path, simulate),
+        Mode::SaveAndExit | Mode::SaveOnly => save_session(&session_path),
+    }
 
     if mode == Mode::LoadAndExit || mode == Mode::SaveAndExit {
         exit(0);
@@ -72,4 +71,3 @@ fn main() {
         thread::sleep(time::Duration::from_secs(save_interval));
     }
 }
-    
